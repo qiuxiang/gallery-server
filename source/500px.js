@@ -13,8 +13,11 @@ DataSource.prototype.get = function (page) {
           return {
             name: item.name,
             description: item.description,
-            thumbnail: item.images[2].url,
-            original: item.images[item.images.length - 1].url
+            aspect_ratio: item.width / item.height,
+            images: {
+              small: item.images[2].url,
+              large: item.images[6].url
+            }
           }
         }))
       }
