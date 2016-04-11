@@ -14,7 +14,7 @@ DataSource.prototype.get = function (page) {
             name: item.name,
             description: item.description,
             aspect_ratio: item.width / item.height,
-            images: {
+            image: {
               small: item.images[2].url,
               large: item.images[6].url
             }
