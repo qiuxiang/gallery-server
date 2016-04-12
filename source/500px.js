@@ -5,7 +5,7 @@ var DataSource = function () {
 }
 
 DataSource.prototype.get = function (page) {
-  page = page || 0
+  page = page || 1
   return q.Promise(function (resolve) {
     request.get('https://marketplace.500px.com/api/photos?sort=licensed_at&per_page=40&page=' + page,
       function (error, response) {

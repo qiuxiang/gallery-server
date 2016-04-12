@@ -7,7 +7,7 @@ app.get('/', function (req, res) {
   if (cache && Date.now() - cache.time < 3600000) {
     response(cache.data)
   } else {
-    var source = new (require('./source/' + req.query.source || '500px'))()
+    var source = new (require('./source/' + (req.query.source || '500px')))()
     source.get(req.query.page || 1).then(function (data) {
       caches[req.url] = {
         time: Date.now(),
