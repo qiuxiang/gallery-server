@@ -8,7 +8,7 @@ app.get('/', function (req, res) {
     response(cache.data)
   } else {
     var source = new (require('./source/' + (req.query.source || '500px')))()
-    source.get(req.query.page || 1).then(function (data) {
+    source.get(req.query.page || 0).then(function (data) {
       caches[req.url] = {
         time: Date.now(),
         data: data
