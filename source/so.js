@@ -1,27 +1,27 @@
-var q = require('q')
-var request = require('request')
+var util = require('util')
+var Base = require('./base')
 
-var DataSource = function () {
+function DataSource() {
+  this.listField = 'list'
 }
 
-DataSource.prototype.get = function (page) {
-  return q.Promise(function (resolve) {
-    request.get('http://image.so.com/zj?ch=photography&listtype=hot&sn=' + page * 30,
-      function (error, response) {
-        resolve(JSON.parse(response.body).list.map(function (item) {
-          return {
-            name: item.group_title,
-            description: '标签：' + item.tag,
-            aspect_ratio: item.cover_width / item.cover_height,
-            image: {
-              small: item.cover_imgurl,
-              large: item.cover_imgurl
-            }
-          }
-        }))
-      }
-    )
-  })
+util.inherits(DataSource, Base)
+
+DataSource.prototype.getUrl = function (page) {
+  return 'http://image.so.com/zj?ch=photography&listtype=hot&sn=' + page * 30
+}
+
+DataSource.prototype.fieldsMap = function (item) {
+  return {
+    name: item.group_title,
+    description: '标签：' + item.tag,
+    width: parseInt(item.cover_width),
+    height: parseInt(item.cover_height),
+    photo: {
+      small: item.cover_imgurl,
+      large: item.cover_imgurl
+    }
+  }
 }
 
 module.exports = DataSource

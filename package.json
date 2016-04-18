@@ -2,6 +2,7 @@
   "private": true,
   "dependencies": {
     "express": "^4.13.4",
+    "pm2": "^1.1.2",
     "q": "^1.4.1",
     "request": "^2.70.0"
   }

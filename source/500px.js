@@ -1,27 +1,27 @@
-var q = require('q')
-var request = require('request')
+var util = require('util')
+var Base = require('./base')
 
-var DataSource = function () {
+function DataSource() {
+  this.listField = 'data'
 }
 
-DataSource.prototype.get = function (page) {
-  return q.Promise(function (resolve) {
-    request.get('https://marketplace.500px.com/api/photos?sort=licensed_at&per_page=30&page=' + (page + 1),
-      function (error, response) {
-        resolve(JSON.parse(response.body).data.map(function (item) {
-          return {
-            name: item.name,
-            description: item.description,
-            aspect_ratio: item.width / item.height,
-            image: {
-              small: item.images[2].url,
-              large: item.images[6].url
-            }
-          }
-        }))
-      }
-    )
-  })
+util.inherits(DataSource, Base)
+
+DataSource.prototype.getUrl = function (page) {
+  return 'https://marketplace.500px.com/api/photos?sort=licensed_at&per_page=30&page=' + (page + 1)
+}
+
+DataSource.prototype.fieldsMap = function (item) {
+  return {
+    name: item.name,
+    description: item.description,
+    width: item.width,
+    height: item.height,
+    photo: {
+      small: item.images[2].url,
+      large: item.images[6].url
+    }
+  }
 }
 
 module.exports = DataSource
