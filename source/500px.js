@@ -17,7 +17,7 @@ DataSource.prototype.fieldsMap = function (item) {
     description: item.description,
     width: item.width,
     height: item.height,
-    photo: {
+    image: {
       small: item.images[2].url,
       large: item.images[6].url
     }
