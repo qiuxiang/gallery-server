@@ -17,7 +17,7 @@ DataSource.prototype.fieldsMap = function (item) {
     description: '标签：' + item.tag,
     width: parseInt(item.cover_width),
     height: parseInt(item.cover_height),
-    image: {
+    url: {
       small: item.cover_imgurl,
       large: item.cover_imgurl
     }
