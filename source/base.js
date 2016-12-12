@@ -8,7 +8,11 @@ DataSourceBase.prototype.get = function (page) {
   return Promise(function (resolve) {
     request.get(self.getUrl(page),
       function (error, response) {
-        resolve(JSON.parse(response.body)[self.listField].map(self.fieldsMap))
+        if (self.listField) {
+          resolve(JSON.parse(response.body)[self.listField].map(self.fieldsMap))
+        } else {
+          resolve(JSON.parse(response.body).map(self.fieldsMap))
+        }
       }
     )
   })

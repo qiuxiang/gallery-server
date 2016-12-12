@@ -2,24 +2,23 @@ var util = require('util')
 var Base = require('./base')
 
 function DataSource() {
-  this.listField = 'data'
 }
 
 util.inherits(DataSource, Base)
 
 DataSource.prototype.getUrl = function (page) {
-  return 'https://marketplace.500px.com/api/photos?sort=licensed_at&per_page=30&page=' + (page + 1)
+  return 'http://www.500px.me/community/discover/rating?type=json&size=30&page=' + (page + 1)
 }
 
 DataSource.prototype.fieldsMap = function (item) {
   return {
-    name: item.name,
-    description: item.description,
+    name: item.title,
+    description: '作者：' + item.uploaderInfo.nickName,
     width: item.width,
     height: item.height,
-    url: {
-      small: item.images[2].url,
-      large: item.images[6].url
+    image: {
+      small: item.url.p1,
+      large: item.url.p4
     }
   }
 }
