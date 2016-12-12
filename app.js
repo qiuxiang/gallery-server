@@ -3,11 +3,11 @@ var caches = {}
 
 app.get('/', function (req, res) {
   var cache = caches[req.url]
-  
+
   if (cache && Date.now() - cache.time < 3600000) {
     response(cache.data)
   } else {
-    var source = new (require('./source/' + (req.query.source || 'so')))()
+    var source = new (require('./source/' + (req.query.source || '500px')))()
     source.get(req.query.page || 0).then(function (data) {
       caches[req.url] = {
         time: Date.now(),
@@ -16,7 +16,7 @@ app.get('/', function (req, res) {
       response(data)
     })
   }
-  
+
   function response(data) {
     res.set('Access-Control-Allow-Origin', '*')
     res.send(data)
